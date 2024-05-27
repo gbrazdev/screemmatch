@@ -1,5 +1,6 @@
 package com.gbrazdev.screemmatch;
 
+import com.gbrazdev.screemmatch.models.EpisodeModel;
 import com.gbrazdev.screemmatch.models.SeriesModel;
 import com.gbrazdev.screemmatch.services.ConsumeDate;
 import com.gbrazdev.screemmatch.services.ConvertDate;
@@ -21,6 +22,13 @@ public class ScreemmatchApplication implements CommandLineRunner {
 		ConvertDate conversor = new ConvertDate();
 		SeriesModel dados = conversor.obterDados(json, SeriesModel.class);
 		System.out.println(dados);
+
+		var jsonEp = consumeDate.obterDados("http://www.omdbapi.com/?i=tt0773262&season=1&episode=2&apikey=209b8ce7");
+		EpisodeModel epDates = conversor.obterDados(jsonEp, EpisodeModel.class);
+		System.out.println(epDates);
+
+
+
 	}
 
 }
