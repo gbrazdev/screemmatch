@@ -1,5 +1,6 @@
 package com.gbrazdev.screemmatch.main;
 
+import com.gbrazdev.screemmatch.models.Episode;
 import com.gbrazdev.screemmatch.models.EpisodeModel;
 import com.gbrazdev.screemmatch.models.SeasonModel;
 import com.gbrazdev.screemmatch.models.SeriesModel;
@@ -41,7 +42,7 @@ public class Main {
 
         List<EpisodeModel> dadosEpisodes = seasons.stream()
                 .flatMap(t -> t.episodes().stream())
-                .collect(Collectors.toList());
+                .toList();
 
         System.out.println("\n Top 5 episódios");
         dadosEpisodes.stream()
@@ -49,6 +50,13 @@ public class Main {
                 .sorted(Comparator.comparing(EpisodeModel::rating).reversed())
                 .limit(5)
                 .forEach(System.out::println);
+
+        List<Episode> episodios = seasons.stream()
+                .flatMap(s -> s.episodes().stream()
+                        .map(d -> new Episode(s.number(), d))
+                ).toList();
+
+        episodios.forEach(System.out::println);
 
 
     }
